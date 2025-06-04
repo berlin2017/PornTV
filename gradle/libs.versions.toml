@@ -1,0 +1,111 @@
+[versions]
+# SDK版本
+compileSdk = "36"
+glide = "4.16.0"
+junit = "4.13.2"
+minSdk = "21"
+targetSdk = "34"
+
+# 插件版本
+agp = "8.9.2"
+kotlin = "2.0.21"
+ksp = "2.0.21-1.0.25" # <--- UPDATE THIS TO A VERSION COMPATIBLE WITH Kotlin 1.9.10
+
+# 库版本
+core-ktx = "1.12.0"
+lifecycle = "2.6.2"
+activity-compose = "1.8.0"
+compose-bom = "2023.10.01"
+compose-tv = "1.0.0-alpha10"
+navigation = "2.7.4"
+hilt = "2.48"
+hilt-navigation = "1.0.0"
+retrofit = "2.9.0"
+okhttp = "4.11.0"
+coil = "2.4.0"
+exoplayer = "2.19.1"
+kotlinx-coroutines = "1.7.3"
+kotlinx-serialization = "1.6.0"
+kotlinx-serialization-converter = "1.0.0"
+jsoup = "1.16.1"
+appcompat = "1.6.1"
+
+[libraries]
+# AndroidX核心库
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+
+# Compose
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "compose-tv" }
+compose-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "compose-tv" }
+
+# 导航
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+junit = { module = "junit:junit", version.ref = "junit" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+# Hilt依赖注入
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation" }
+
+# 网络
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+# 图片加载
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
+# 视频播放
+exoplayer-core = { group = "com.google.android.exoplayer", name = "exoplayer-core", version.ref = "exoplayer" }
+exoplayer-ui = { group = "com.google.android.exoplayer", name = "exoplayer-ui", version.ref = "exoplayer" }
+exoplayer-hls = { group = "com.google.android.exoplayer", name = "exoplayer-hls", version.ref = "exoplayer" }
+
+# 协程
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+
+# 序列化
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+retrofit-kotlinx-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
+
+# HTML解析
+jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
+
+# 测试库
+androidx-test-junit = { group = "androidx.test.ext", name = "junit", version = "1.1.5" }
+androidx-test-espresso = { group = "androidx.test.espresso", name = "espresso-core", version = "3.5.1" }
+compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+# 调试工具
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3"]
+compose-tv = ["compose-tv-foundation", "compose-tv-material"]
+exoplayer = ["exoplayer-core", "exoplayer-ui", "exoplayer-hls"]
+network = ["retrofit", "okhttp", "okhttp-logging", "retrofit-kotlinx-serialization"]
+
+
+
+
