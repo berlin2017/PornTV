@@ -3,6 +3,7 @@ package com.berlin.porntv.ui.player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.berlin.porntv.data.model.VideoDetail
+import com.berlin.porntv.data.model.VideoItemModel
 import com.berlin.porntv.data.model.VideoQuality
 import com.berlin.porntv.data.repository.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,15 +37,13 @@ class PlayerViewModel @Inject constructor(
                         )
                     } else {
                         _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            error = "无法加载视频详情"
+                            isLoading = false, error = "无法加载视频详情"
                         )
                     }
                 }
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = e.message
+                    isLoading = false, error = e.message
                 )
             }
         }
@@ -52,6 +51,36 @@ class PlayerViewModel @Inject constructor(
 
     fun selectQuality(quality: VideoQuality) {
         _uiState.value = _uiState.value.copy(selectedQuality = quality)
+    }
+
+    fun fetchVideoDetails(videoId: String) {
+        _uiState.value = _uiState.value.copy(isLoading = true)
+        viewModelScope.launch {
+            when (val result = videoRepository.getVideoInfoFromApi(videoId)) {
+                is com.berlin.porntv.data.repository.Result.Success -> {
+                    result.data.toVideoDetail()
+                        ?.let { videoDetail ->
+                            _uiState.value = _uiState.value.copy(
+                                videoDetail = videoDetail,
+                                selectedQuality = videoDetail.qualities.lastOrNull(),
+                                isLoading = false,
+                                error = null
+                            )
+                        } ?: run {
+                        _uiState.value = _uiState.value.copy(
+                            videoDetail = null, isLoading = false, error = "无法加载视频详情"
+                        )
+                    }
+                }
+
+                is com.berlin.porntv.data.repository.Result.Error -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false, error = "无法加载视频详情"
+                    )
+                    // Log result.exception for more details
+                }
+            }
+        }
     }
 }
 
@@ -64,4 +93,22 @@ data class PlayerUiState(
 ) {
     val currentVideoUrl: String
         get() = selectedQuality?.url ?: videoDetail?.videoUrl ?: ""
+}
+
+fun VideoItemModel.toVideoDetail(): VideoDetail? {
+    return if (this.formats?.isNotEmpty() == true) {
+        VideoDetail(
+            id = this.title ?: "Unknown",
+            title = this.title ?: "Unknown",
+            videoUrl = this.formats.lastOrNull()?.url ?: "",
+            qualities = this.formats.map { format ->
+                VideoQuality(
+                    label = format.formatId ?: "Unknown", url = format.url ?: "",
+                    formatId = format.formatId,
+                    protocol = format.protocol
+                )
+            })
+    } else {
+        null
+    }
 }

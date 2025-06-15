@@ -128,6 +128,8 @@ class VideoScraper @Inject constructor() {
             var videoElement = doc.selectFirst("video.mgp_videoElement") // 使用你提供的 class
             var sourceElement = videoElement?.selectFirst("source[type='video/mp4']")
             var actualVideoUrl = sourceElement?.attr("src")
+            actualVideoUrl = "https://cdn77-vid.xvideos-cdn.com/Ve_Ejfj5oKeVB09y545S0g==,1749990576/videos/hls/47/84/2c/47842cf8946df899de2c2799d5bea218/hls-720p-b41c4.m3u8"
+            actualVideoUrl = "https://cdn77-vid.xvideos-cdn.com/N3qmybQS5Gs6bbNqrMcRNA==,1749991427/videos/hls/47/84/2c/47842cf8946df899de2c2799d5bea218/hls-720p-b41c4.m3u8"
 
             // 2. 如果上面的选择器失败，尝试更通用的选择器
             if (actualVideoUrl.isNullOrEmpty()) {

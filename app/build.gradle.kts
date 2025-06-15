@@ -109,4 +109,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
 
+    // Gson 转换器
+    implementation(libs.converter.gson) // 版本号通常与Retrofit核心库一致
+
 }
