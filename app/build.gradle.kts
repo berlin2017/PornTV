@@ -112,4 +112,6 @@ dependencies {
     // Gson 转换器
     implementation(libs.converter.gson) // 版本号通常与Retrofit核心库一致
 
+    implementation(libs.androidx.material.icons.extended)
+
 }

@@ -34,7 +34,10 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("player/{videoId}") { backStackEntry ->
                         val videoId = backStackEntry.arguments?.getString("videoId") ?: ""
-                        PlayerScreen(videoId = "https://cn.pornhub.com/view_video.php?viewkey=$videoId", navController = navController)
+                        PlayerScreen(
+                            videoId = "https://cn.pornhub.com/view_video.php?viewkey=$videoId",
+                            navController = navController
+                        )
                     }
                 }
             }

@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory // Import GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -48,6 +49,10 @@ object AppModule {
         // 配置 OkHttpClient (例如添加拦截器、超时等)
         return OkHttpClient.Builder()
              .addInterceptor(loggingInterceptor)
+            .connectTimeout(100, TimeUnit.SECONDS) // 设置连接超时
+            .writeTimeout(100, TimeUnit.SECONDS) // 设置连接超时
+            .readTimeout(100, TimeUnit.SECONDS) // 设置连接超时
+            .callTimeout(100, TimeUnit.SECONDS) // 设置连接超时
             .build()
     }
 

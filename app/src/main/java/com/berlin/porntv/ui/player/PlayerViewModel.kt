@@ -53,6 +53,18 @@ class PlayerViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(selectedQuality = quality)
     }
 
+    fun switchQuality() {
+        val currentQuality = _uiState.value.selectedQuality
+        val videoDetail = _uiState.value.videoDetail
+
+        if (videoDetail != null && videoDetail.qualities.isNotEmpty()) {
+            val qualities = videoDetail.qualities
+            val currentIndex = qualities.indexOf(currentQuality)
+            val nextIndex = (currentIndex + 1) % qualities.size
+            _uiState.value = _uiState.value.copy(selectedQuality = qualities[nextIndex])
+        }
+    }
+
     fun fetchVideoDetails(videoId: String) {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {

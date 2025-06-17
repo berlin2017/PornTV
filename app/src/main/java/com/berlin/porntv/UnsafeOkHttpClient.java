@@ -6,6 +6,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
@@ -43,6 +44,10 @@ public class UnsafeOkHttpClient {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0]);
             builder.hostnameVerifier(hostnameVerifier);
+            builder.setCallTimeout$okhttp(30 * 1000);
+            builder.setConnectTimeout$okhttp(30 * 1000);
+            builder.setReadTimeout$okhttp(30 * 1000);
+            builder.setWriteTimeout$okhttp(30 * 1000);
 
             return builder.build();
         } catch (Exception e) {
